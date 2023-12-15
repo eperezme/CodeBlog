@@ -21,7 +21,7 @@ export default function Home({ posts }) {
 				{/* CSS KATEX */}
 				{/* <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css"></link> */}
 			</Head>
-			<h1>Welcome to Edu's Coding Blog</h1>
+			<h1>Welcome to Edu&apos;s Coding Blog</h1>
 			<p>In this blog I will post my thoughts and experiences I encounter while searching for knowledge and working on projects. </p>
 			<br />
 			<h2>All posts</h2>
@@ -32,17 +32,13 @@ export default function Home({ posts }) {
 						<a>
 							<div className="card">
 								<h3>
-									<ReactMarkdown
-										remarkPlugins={[remarkGfm, emoji, remarkMath]}
-										rehypePlugins={[rehypeKatex, rehypeHighlight]}
-										children={val.attributes.title}
-									/>
+									<ReactMarkdown remarkPlugins={[remarkGfm, emoji, remarkMath]} rehypePlugins={[rehypeKatex, rehypeHighlight]}>
+										{val.attributes.title}
+									</ReactMarkdown>
 								</h3>
-								<ReactMarkdown
-									remarkPlugins={[remarkGfm, emoji, remarkMath]}
-									rehypePlugins={[rehypeKatex, rehypeHighlight]}
-									children={val.attributes.description}
-								/>
+								<ReactMarkdown remarkPlugins={[remarkGfm, emoji, remarkMath]} rehypePlugins={[rehypeKatex, rehypeHighlight]}>
+									{val.attributes.description}
+								</ReactMarkdown>
 							</div>
 						</a>
 					</Link>

@@ -21,7 +21,9 @@ export default function Post({ post }) {
 	return (
 		<div>
 			<h1>
-				<ReactMarkdown remarkPlugins={[remarkGfm, emoji, remarkMath]} rehypePlugins={[rehypeKatex, rehypeHighlight]} children={post.title} />
+				<ReactMarkdown remarkPlugins={[remarkGfm, emoji, remarkMath]} rehypePlugins={[rehypeKatex, rehypeHighlight]}>
+					{post.title}
+				</ReactMarkdown>
 			</h1>
 			<div className="date-line">
 				<span role="img" aria-label="calendar">
@@ -29,7 +31,9 @@ export default function Post({ post }) {
 				</span>
 				{formattedDate}
 			</div>
-			<ReactMarkdown remarkPlugins={[remarkGfm, emoji, remarkMath]} rehypePlugins={[rehypeKatex, rehypeHighlight]} children={post.content} />
+			<ReactMarkdown remarkPlugins={[remarkGfm, emoji, remarkMath]} rehypePlugins={[rehypeKatex, rehypeHighlight]}>
+				{post.content}
+			</ReactMarkdown>
 		</div>
 	);
 }
