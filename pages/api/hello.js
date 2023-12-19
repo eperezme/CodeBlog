@@ -5,7 +5,7 @@ export const config = {
 		bodyParser: false,
 	},
 	pages: {
-		edge: {
+		experimental-edge: {
 			maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
 		},
 	},
