@@ -1,4 +1,4 @@
-// Add this to your /api/hello.js file
+// Add this to your /api/hello.js file updated
 export const config = { runtime: "experimental-edge" };
 
 // Your existing API handler
