@@ -70,3 +70,5 @@ export async function getServerSideProps({ params }) {
 		},
 	};
 }
+
+export const config = { runtime: "edge" };
