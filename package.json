@@ -6,12 +6,10 @@
 		"dev": "next dev",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint",
-		"export": "next build && next export"
+		"lint": "next lint"
 	},
 	"dependencies": {
 		"@apollo/client": "^3.6.9",
-		"date-fns": "^3.0.0",
 		"graphql": "^16.5.0",
 		"highlight.js": "^11.9.0",
 		"katex": "^0.16.9",

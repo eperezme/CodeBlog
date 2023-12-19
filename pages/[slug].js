@@ -7,7 +7,7 @@ import emoji from "remark-emoji";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import rehypeHighlight from "rehype-highlight";
-import { format } from "date-fns";
+// import "katex/dist/katex.min.css";
 
 const client = new ApolloClient({
 	uri: "https://cms.eperezme.com/graphql",
@@ -16,30 +16,30 @@ const client = new ApolloClient({
 
 export default function Post({ post }) {
 	const date = new Date(post.date);
-	const formattedDate = format(date, "MMMM d, yyyy"); // Use date-fns for consistent formatting
-
-	const renderMarkdown = (content) => (
-		<ReactMarkdown remarkPlugins={[remarkGfm, emoji, remarkMath]} rehypePlugins={[rehypeKatex, rehypeHighlight]}>
-			{content}
-		</ReactMarkdown>
-	);
+	const formattedDate = `${date.toLocaleString("default", { month: "long" })} ${date.getDate()}, ${date.getFullYear()}`;
 
 	return (
 		<div>
-			<h1>{renderMarkdown(post.title)}</h1>
+			<h1>
+				<ReactMarkdown remarkPlugins={[remarkGfm, emoji, remarkMath]} rehypePlugins={[rehypeKatex, rehypeHighlight]}>
+					{post.title}
+				</ReactMarkdown>
+			</h1>
 			<div className="date-line">
 				<span role="img" aria-label="calendar">
 					📅
 				</span>
 				{formattedDate}
 			</div>
-			{renderMarkdown(post.content)}
+			<ReactMarkdown remarkPlugins={[remarkGfm, emoji, remarkMath]} rehypePlugins={[rehypeKatex, rehypeHighlight]}>
+				{post.content}
+			</ReactMarkdown>
 		</div>
 	);
 }
 
-export async function getServerSidePaths() {
-	const { data } = await client.query({ query: GET_ALL_SLUGS, fetchPolicy: "no-cache" });
+export async function getStaticPaths() {
+	const { data } = await client.query({ query: GET_ALL_SLUGS });
 
 	const paths = data.blogPosts.data.map((post) => {
 		return { params: { slug: post.attributes.urlSlug } };
@@ -51,11 +51,10 @@ export async function getServerSidePaths() {
 	};
 }
 
-export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params }) {
 	const { data } = await client.query({
 		query: GET_INDIVIDUAL_POST,
 		variables: { slugUrl: params.slug },
-		fetchPolicy: "no-cache",
 	});
 
 	const attrs = data.blogPosts.data[0].attributes;
@@ -70,5 +69,3 @@ export async function getServerSideProps({ params }) {
 		},
 	};
 }
-
-export const config = { runtime: "experimental-edge" };
